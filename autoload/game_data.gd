@@ -1,9 +1,44 @@
 extends Node
 
 var game_finished = false
-var graze = 0
+var graze = 0 :
+	set(g):
+		graze = g
+		graze_changed.emit(g)
 
+var permanent_data : Dictionary = {}
+
+signal graze_changed(int)
+
+func _ready():
+	load_data()
+	print(permanent_data)
+
+func save_data():
+	var file = FileAccess.open("user://data.cocoon", FileAccess.WRITE)
+	file.store_string(JSON.stringify(permanent_data))
+	file.close()
+
+func set_data(key, value):
+	permanent_data[key] = value
+	save_data()
+
+func data_has_key(key):
+	return permanent_data.keys().has(key)
+
+func get_data(key, default):
+	return permanent_data.get(key, default)
+
+func load_data():
+	if not FileAccess.file_exists("user://data.cocoon"):
+		save_data()
+		return
+	var file = FileAccess.open("user://data.cocoon", FileAccess.READ)
+	var data = JSON.parse_string(file.get_as_text())
+	permanent_data = data
+	
 func show_win_screen(boss_name: String):
+	
 	game_finished = true
 	var timer = get_tree().get_first_node_in_group("Timer")
 	var win_screen = get_tree().get_first_node_in_group("WinScreen")
@@ -19,8 +54,3 @@ func show_lose():
 	game_finished = true
 	var lose_screen = get_tree().get_first_node_in_group("LoseScreen")
 	lose_screen.show()
-
-func _input(event):
-	if event is InputEventScreenTouch:
-		if event.double_tap:
-			get_tree().change_scene_to_file("res://src/scenes/selection_scene.tscn")

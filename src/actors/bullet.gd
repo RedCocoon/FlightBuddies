@@ -7,6 +7,7 @@ var faux_rotation : float
 var hit_distance : Vector2 = Vector2.ZERO
 var graze_distance : Vector2 = Vector2.ZERO
 var active : bool = false
+var unique : bool = false
 var damage : float = 1
 var target_type: BulletData.TARGET_TYPES = BulletData.TARGET_TYPES.PLAYER
 var track_type: BulletData.TRACK_TYPES = BulletData.TRACK_TYPES.NONE
@@ -37,7 +38,9 @@ func _process(delta):
 	if delay > 0:
 		delay -= delta
 		if track_type == BulletData.TRACK_TYPES.INITIAL:
-			rotation = player.global_position.angle_to_point(global_position)
+			var target = player if target_type == BulletData.TARGET_TYPES.PLAYER else BulletData.enemy_targets.front()
+			if target:
+				rotation = target.global_position.angle_to_point(global_position)
 		return
 	if track_type == BulletData.TRACK_TYPES.CONTINUOUS:
 		if target_type == BulletData.TARGET_TYPES.PLAYER:
@@ -74,6 +77,7 @@ func try_hit(target: Node2D):
 func initiate(type: BulletData.BULLET_TYPES):
 	var data = BulletData.get_bullet_data(type)
 	delay = 0
+	scale = Vector2.ONE
 	rotation = 0
 	region_rect = data[0]
 	speed = data[1]
@@ -85,8 +89,8 @@ func initiate(type: BulletData.BULLET_TYPES):
 	if target_type == BulletData.TARGET_TYPES.PLAYER:
 		hit_distance.x = sprite_size[0] / 4
 		hit_distance.y = sprite_size[1] / 4
-		graze_distance.x = sprite_size[0] + 2
-		graze_distance.y = sprite_size[1] + 2
+		graze_distance.x = sprite_size[0] - 1
+		graze_distance.y = sprite_size[1] - 1
 	else:
 		hit_distance.x = sprite_size[0]
 		hit_distance.y = sprite_size[1]

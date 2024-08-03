@@ -1,0 +1,242 @@
+[gd_scene load_steps=10 format=3 uid="uid://cmaexo5hsnw8q"]
+
+[ext_resource type="Texture2D" uid="uid://c73tfg26hfqkw" path="res://assets/textures/players/tappy/tappy.png" id="1_b06qx"]
+[ext_resource type="Script" path="res://src/actors/player/tappy/tappy.gd" id="2_0b3dr"]
+[ext_resource type="Texture2D" uid="uid://be2waq32vlwp2" path="res://assets/textures/players/tappy/ShootPosIndicator.png" id="3_e853a"]
+[ext_resource type="Texture2D" uid="uid://ddma6k82kq73r" path="res://assets/textures/players/tappy/portrait.png" id="4_yu6k4"]
+[ext_resource type="Texture2D" uid="uid://cncyw7aqopcyi" path="res://assets/textures/players/hitbox.png" id="5_bvft5"]
+
+[sub_resource type="Animation" id="Animation_jm4t1"]
+resource_name = "Fade In"
+length = 1.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.406126, 2.14355),
+"update": 0,
+"values": [Vector2(895, 839), Vector2(1558, 718)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.8, 1.1, 1.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../RichTextLabel:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(0.108819, 1),
+"update": 0,
+"values": [Vector2(121, 477), Vector2(577, 477)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../RichTextLabel:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.7, 1.1, 1.6),
+"transitions": PackedFloat32Array(0.133972, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1, 1), Vector2(1, 1), Vector2(1e-05, 1e-05)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../Panel:self_modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.7, 0.8, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_grs4b"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(895, 839)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../RichTextLabel:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(577, 477)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../RichTextLabel:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../Panel:self_modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5i62t"]
+_data = {
+"Fade In": SubResource("Animation_jm4t1"),
+"RESET": SubResource("Animation_grs4b")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tnkws"]
+bg_color = Color(0.912289, 0.912289, 0.912289, 1)
+
+[node name="Player" type="Sprite2D" node_paths=PackedStringArray("normal_shoot_pos_marker", "focus_shoot_pos_marker", "shoot_pos_indicator", "tapir_stomp_anim_player") groups=["Player"]]
+process_mode = 3
+texture = ExtResource("1_b06qx")
+script = ExtResource("2_0b3dr")
+normal_shoot_pos_marker = [NodePath("NormalPosMarkers/Marker2D"), NodePath("NormalPosMarkers/Marker2D2"), NodePath("NormalPosMarkers/Marker2D3"), NodePath("NormalPosMarkers/Marker2D4")]
+focus_shoot_pos_marker = [NodePath("FocusPosMarkers/Marker2D"), NodePath("FocusPosMarkers/Marker2D2"), NodePath("FocusPosMarkers/Marker2D3"), NodePath("FocusPosMarkers/Marker2D4")]
+shoot_pos_indicator = [NodePath("ShootPosIndicators/Sprite2D"), NodePath("ShootPosIndicators/Sprite2D2"), NodePath("ShootPosIndicators/Sprite2D3"), NodePath("ShootPosIndicators/Sprite2D4")]
+tapir_stomp_anim_player = NodePath("CanvasLayer/Control/Sprite2D/AnimationPlayer")
+
+[node name="FocusPosMarkers" type="Node2D" parent="."]
+position = Vector2(0, 2)
+
+[node name="Marker2D" type="Marker2D" parent="FocusPosMarkers"]
+position = Vector2(-3, -9)
+
+[node name="Marker2D2" type="Marker2D" parent="FocusPosMarkers"]
+position = Vector2(3, -9)
+
+[node name="Marker2D3" type="Marker2D" parent="FocusPosMarkers"]
+position = Vector2(-5, -6)
+
+[node name="Marker2D4" type="Marker2D" parent="FocusPosMarkers"]
+position = Vector2(5, -6)
+
+[node name="NormalPosMarkers" type="Node2D" parent="."]
+position = Vector2(0, 2)
+
+[node name="Marker2D" type="Marker2D" parent="NormalPosMarkers"]
+position = Vector2(-5, -12)
+
+[node name="Marker2D2" type="Marker2D" parent="NormalPosMarkers"]
+position = Vector2(5, -12)
+
+[node name="Marker2D3" type="Marker2D" parent="NormalPosMarkers"]
+position = Vector2(-10, -7)
+
+[node name="Marker2D4" type="Marker2D" parent="NormalPosMarkers"]
+position = Vector2(10, -7)
+
+[node name="ShootPosIndicators" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="ShootPosIndicators"]
+texture = ExtResource("3_e853a")
+
+[node name="Sprite2D2" type="Sprite2D" parent="ShootPosIndicators"]
+texture = ExtResource("3_e853a")
+
+[node name="Sprite2D3" type="Sprite2D" parent="ShootPosIndicators"]
+texture = ExtResource("3_e853a")
+
+[node name="Sprite2D4" type="Sprite2D" parent="ShootPosIndicators"]
+texture = ExtResource("3_e853a")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Control"]
+self_modulate = Color(1, 1, 1, 0)
+position = Vector2(895, 839)
+scale = Vector2(8, 8)
+texture = ExtResource("4_yu6k4")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Control/Sprite2D"]
+process_mode = 3
+libraries = {
+"": SubResource("AnimationLibrary_5i62t")
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_left = 577.0
+offset_top = 477.0
+offset_right = 1354.0
+offset_bottom = 692.0
+scale = Vector2(1e-05, 1e-05)
+theme_override_font_sizes/normal_font_size = 128
+text = "Tapir Stomp"
+
+[node name="Panel" type="Panel" parent="CanvasLayer/Control"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tnkws")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 0.785398
+texture = ExtResource("5_bvft5")

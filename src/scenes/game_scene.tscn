@@ -1,17 +1,20 @@
-[gd_scene load_steps=19 format=3 uid="uid://oyoxl2uptaci"]
+[gd_scene load_steps=22 format=3 uid="uid://oyoxl2uptaci"]
 
 [ext_resource type="Texture2D" uid="uid://qq1crrq2qms4" path="res://assets/textures/ui/buttons/focus.png" id="3_8gwhs"]
 [ext_resource type="Texture2D" uid="uid://058e3st72db7" path="res://assets/textures/background/clouds/cloud_2.png" id="5_5tipq"]
 [ext_resource type="Script" path="res://src/ui/ScrollingSprite2D.gd" id="6_g4xwc"]
 [ext_resource type="Texture2D" uid="uid://b6xfe6eixe1yg" path="res://assets/textures/background/clouds/cloud_3.png" id="7_pbnwr"]
 [ext_resource type="Texture2D" uid="uid://cigi30bwx3dhp" path="res://assets/textures/background/clouds/cloud_4.png" id="8_1iq0f"]
-[ext_resource type="PackedScene" uid="uid://bsaq8woksonnb" path="res://src/actors/enemies/bam/bam.tscn" id="8_iu117"]
+[ext_resource type="Texture2D" uid="uid://c8bub32ilbkbb" path="res://assets/textures/ui/player_health.png" id="8_p5qqd"]
+[ext_resource type="Script" path="res://src/ui/graze_counter.gd" id="8_rnbb4"]
+[ext_resource type="Texture2D" uid="uid://dygjv7msr5idw" path="res://assets/textures/ui/bomb.png" id="9_73rgo"]
 [ext_resource type="Script" path="res://src/ui/win_screen.gd" id="9_apx10"]
 [ext_resource type="Texture2D" uid="uid://ckfs61nplbu5t" path="res://assets/textures/background/clouds/cloud_5.png" id="9_nen7m"]
-[ext_resource type="PackedScene" uid="uid://m53a6yq4sm2v" path="res://src/actors/player/player.tscn" id="10_oi50e"]
 [ext_resource type="Script" path="res://src/ui/time_out_screen.gd" id="10_vu05o"]
+[ext_resource type="PackedScene" uid="uid://sjkias4wbnry" path="res://src/actors/player/bam/bam.tscn" id="11_2vcwt"]
 [ext_resource type="Script" path="res://src/ui/lose_screen.gd" id="11_lc0na"]
 [ext_resource type="Script" path="res://src/ui/timer.gd" id="12_my16e"]
+[ext_resource type="PackedScene" uid="uid://bsaq8woksonnb" path="res://src/actors/enemies/bam/bam.tscn" id="13_a8gdg"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_42kn3"]
 bg_color = Color(0.882353, 0.666667, 0.835294, 1)
@@ -187,25 +190,103 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-alignment = 2
+alignment = 1
 
-[node name="Control" type="Control" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Panel2/VBoxContainer2"]
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Panel2/VBoxContainer2" groups=["Timer"]]
 layout_mode = 2
+theme_override_font_sizes/normal_font_size = 64
+bbcode_enabled = true
+text = "[center]Time: 600"
+fit_content = true
+script = ExtResource("12_my16e")
+
+[node name="HSeparator3" type="HSeparator" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Panel2/VBoxContainer2"]
+layout_mode = 2
+mouse_filter = 1
+theme_override_constants/separation = 100
+theme_override_styles/separator = SubResource("StyleBoxEmpty_mhi1o")
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Panel2/VBoxContainer2" groups=["Timer"]]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 64
+bbcode_enabled = true
+text = "[center]Graze: 600"
+fit_content = true
+script = ExtResource("8_rnbb4")
 
 [node name="HSeparator" type="HSeparator" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Panel2/VBoxContainer2"]
 layout_mode = 2
 mouse_filter = 1
-theme_override_constants/separation = 500
+theme_override_constants/separation = 200
 theme_override_styles/separator = SubResource("StyleBoxEmpty_mhi1o")
 
-[node name="Player" parent="." node_paths=PackedStringArray("LEVEL_BOUND") instance=ExtResource("10_oi50e")]
+[node name="Control" type="Control" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Panel2/VBoxContainer2"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Panel2/VBoxContainer2/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Panel2/VBoxContainer2/Control/HBoxContainer"]
+custom_minimum_size = Vector2(56, 56)
+layout_mode = 2
+texture = ExtResource("8_p5qqd")
+
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Panel2/VBoxContainer2/Control/HBoxContainer"]
+custom_minimum_size = Vector2(56, 56)
+layout_mode = 2
+texture = ExtResource("8_p5qqd")
+
+[node name="TextureRect3" type="TextureRect" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Panel2/VBoxContainer2/Control/HBoxContainer"]
+custom_minimum_size = Vector2(56, 56)
+layout_mode = 2
+texture = ExtResource("8_p5qqd")
+
+[node name="HSeparator2" type="HSeparator" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Panel2/VBoxContainer2"]
+layout_mode = 2
+mouse_filter = 1
+theme_override_constants/separation = 100
+theme_override_styles/separator = SubResource("StyleBoxEmpty_mhi1o")
+
+[node name="Control2" type="Control" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Panel2/VBoxContainer2"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Panel2/VBoxContainer2/Control2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Panel2/VBoxContainer2/Control2/HBoxContainer"]
+custom_minimum_size = Vector2(56, 56)
+layout_mode = 2
+texture = ExtResource("9_73rgo")
+
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Panel2/VBoxContainer2/Control2/HBoxContainer"]
+custom_minimum_size = Vector2(56, 56)
+layout_mode = 2
+texture = ExtResource("9_73rgo")
+
+[node name="TextureRect3" type="TextureRect" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Panel2/VBoxContainer2/Control2/HBoxContainer"]
+custom_minimum_size = Vector2(56, 56)
+layout_mode = 2
+texture = ExtResource("9_73rgo")
+
+[node name="Bam" parent="." instance=ExtResource("11_2vcwt")]
 position = Vector2(0, 32)
-LEVEL_BOUND = NodePath("../Bound/CollisionShape2D")
 
 [node name="BulletHolder" type="Node2D" parent="." groups=["BulletHolder"]]
 
-[node name="Bam" parent="." instance=ExtResource("8_iu117")]
-position = Vector2(0, -24)
+[node name="Bam2" parent="." instance=ExtResource("13_a8gdg")]
+position = Vector2(0, -32)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(8, 8)
@@ -327,12 +408,3 @@ text = "[center][You] have been defeated
 
 [i][Double tap to continue]"
 fit_content = true
-
-[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer3" groups=["Timer"]]
-offset_left = 1740.0
-offset_top = 24.0
-offset_right = 2009.0
-offset_bottom = 199.0
-theme_override_font_sizes/normal_font_size = 64
-text = "600"
-script = ExtResource("12_my16e")

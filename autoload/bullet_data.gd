@@ -10,6 +10,10 @@ enum BULLET_TYPES {
 	BAM_MEDIUM,
 	BAM_HEART,
 	BAM_SHARD,
+	SMALL_BLUE_BAM,
+	BAM_BLUE_GIANT,
+	OGU_ROSE,
+	OGU_SMALL
 }
 
 enum TARGET_TYPES {
@@ -24,6 +28,21 @@ enum TRACK_TYPES {
 }
 
 var atlas_data = {
+	BULLET_TYPES.BAM_BLUE_GIANT: {
+		"pos": [4, 0],
+		"speed": 90,
+		"size": [2, 2],
+		"target_type": TARGET_TYPES.ENEMY,
+		"damage": 0,
+		"track": TRACK_TYPES.INITIAL
+	},
+	BULLET_TYPES.SMALL_BLUE_BAM: {
+		"pos": [0, 0],
+		"speed": 95,
+		"sprite_size": [4, 4],
+		"target_type": TARGET_TYPES.ENEMY,
+		"damage": 0.25
+	},
 	BULLET_TYPES.SMALL_BLUE: {
 		"pos": [0, 0],
 		"speed": 100,
@@ -52,7 +71,16 @@ var atlas_data = {
 		"size": [2, 1],
 		"speed": 50,
 		"track": TRACK_TYPES.INITIAL
-	}
+	},
+	BULLET_TYPES.OGU_ROSE: {
+		"pos": [0, 2],
+		"speed": 60
+	},
+	BULLET_TYPES.OGU_SMALL: {
+		"pos": [1, 2],
+		"sprite_size": [4, 4],
+		"speed": 70
+	},
 }
 
 var bullets: Array = []
@@ -71,6 +99,7 @@ func get_bullet_data(type: BULLET_TYPES) -> Array:
 	
 
 func _ready():
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	generate_bullets()
 
 func generate_bullets():
@@ -85,6 +114,19 @@ func generate_bullets():
 		deactivate_bullet(b)
 		#b.initiate(randi_range(0, BULLET_TYPES.size()-1))
 
+func summon_unique_bullet(pos, rot, type: BULLET_TYPES):
+	match type:
+		BULLET_TYPES.OGU_ROSE:
+			var small_rose = load("res://src/actors/enemies/ogu/small_rose.tscn")
+			var child = small_rose.instantiate()
+			var bullet_holder = get_tree().get_first_node_in_group("BulletHolder")
+			bullet_holder.add_child(child)
+			child.global_position = pos
+			child.faux_rotation = rot
+			child.unique = true
+			child.initiate(type)
+			bullets.append(child)
+
 func summon_bullet(pos: Vector2, rot: float, type: BULLET_TYPES) -> Bullet:
 	var b = inactive_bullets.pop_back()
 	if b == null:
@@ -98,5 +140,9 @@ func summon_bullet(pos: Vector2, rot: float, type: BULLET_TYPES) -> Bullet:
 func deactivate_bullet(bullet: Bullet):
 	bullet.active = false
 	bullet.do_despawn_check = false
+	if bullet.unique:
+		bullets.erase(bullet)
+		bullet.queue_free()
+		return
 	inactive_bullets.append(bullet)
 	bullet.global_position = Vector2(-999, -999)
