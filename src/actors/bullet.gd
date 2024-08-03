@@ -13,13 +13,15 @@ var track_type: BulletData.TRACK_TYPES = BulletData.TRACK_TYPES.NONE
 static var level_bound : Rect2
 static var player : Node2D
 
+var do_despawn_check = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if not faux_rotation:
 		faux_rotation = randf_range(PI, -PI)
 	if not level_bound:
 		var bound : Rect2 = get_tree().get_first_node_in_group("LevelBound").get_shape().get_rect()
-		level_bound = bound.grow(32)
+		level_bound = bound.grow(16)
 	if not player:
 		player = get_tree().get_first_node_in_group("Player")
 		
@@ -29,7 +31,7 @@ func _ready():
 func _process(delta):
 	if not active:
 		return
-	if not level_bound.has_point(global_position):
+	if not level_bound.has_point(global_position) and do_despawn_check:
 		BulletData.deactivate_bullet(self)
 		return
 	if delay > 0:
@@ -67,7 +69,7 @@ func try_hit(target: Node2D):
 		return
 	if target_type == BulletData.TARGET_TYPES.PLAYER:
 		if (x_distance < graze_distance.x and y_distance <= graze_distance.y):
-			print("Graze")
+			GameData.graze += 1
 
 func initiate(type: BulletData.BULLET_TYPES):
 	var data = BulletData.get_bullet_data(type)
@@ -89,3 +91,5 @@ func initiate(type: BulletData.BULLET_TYPES):
 		hit_distance.x = sprite_size[0]
 		hit_distance.y = sprite_size[1]
 	active = true
+	await get_tree().create_timer(0.05).timeout
+	do_despawn_check = true

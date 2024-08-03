@@ -28,7 +28,8 @@ var atlas_data = {
 		"pos": [0, 0],
 		"speed": 100,
 		"sprite_size": [4, 4],
-		"target_type": TARGET_TYPES.ENEMY
+		"target_type": TARGET_TYPES.ENEMY,
+		"damage": 0.5
 	},
 	BULLET_TYPES.MEDIUM_BLUE: {
 		"pos": [1, 0],
@@ -54,6 +55,7 @@ var atlas_data = {
 	}
 }
 
+var bullets: Array = []
 var inactive_bullets: Array = []
 
 func get_bullet_data(type: BULLET_TYPES) -> Array:
@@ -79,6 +81,7 @@ func generate_bullets():
 	for i in range(bullet_count):
 		var b = bullet_scene.instantiate()
 		bullet_holder.add_child(b)
+		bullets.append(b)
 		deactivate_bullet(b)
 		#b.initiate(randi_range(0, BULLET_TYPES.size()-1))
 
@@ -94,5 +97,6 @@ func summon_bullet(pos: Vector2, rot: float, type: BULLET_TYPES) -> Bullet:
 
 func deactivate_bullet(bullet: Bullet):
 	bullet.active = false
+	bullet.do_despawn_check = false
 	inactive_bullets.append(bullet)
 	bullet.global_position = Vector2(-999, -999)

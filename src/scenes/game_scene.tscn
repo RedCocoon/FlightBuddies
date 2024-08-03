@@ -3,15 +3,15 @@
 [ext_resource type="Texture2D" uid="uid://qq1crrq2qms4" path="res://assets/textures/ui/buttons/focus.png" id="3_8gwhs"]
 [ext_resource type="Texture2D" uid="uid://058e3st72db7" path="res://assets/textures/background/clouds/cloud_2.png" id="5_5tipq"]
 [ext_resource type="Script" path="res://src/ui/ScrollingSprite2D.gd" id="6_g4xwc"]
-[ext_resource type="Script" path="res://addons/multidirectionnal joystick/script/joystick.gd" id="7_0yn3g"]
 [ext_resource type="Texture2D" uid="uid://b6xfe6eixe1yg" path="res://assets/textures/background/clouds/cloud_3.png" id="7_pbnwr"]
 [ext_resource type="Texture2D" uid="uid://cigi30bwx3dhp" path="res://assets/textures/background/clouds/cloud_4.png" id="8_1iq0f"]
-[ext_resource type="Texture2D" uid="uid://bdxas4gmvdbum" path="res://assets/textures/ui/buttons/circle.png" id="8_40t48"]
 [ext_resource type="PackedScene" uid="uid://bsaq8woksonnb" path="res://src/actors/enemies/bam/bam.tscn" id="8_iu117"]
-[ext_resource type="Texture2D" uid="uid://binbbs1n05hjp" path="res://addons/multidirectionnal joystick/textures/bigger.svg" id="8_t4lsc"]
+[ext_resource type="Script" path="res://src/ui/win_screen.gd" id="9_apx10"]
 [ext_resource type="Texture2D" uid="uid://ckfs61nplbu5t" path="res://assets/textures/background/clouds/cloud_5.png" id="9_nen7m"]
-[ext_resource type="Texture2D" uid="uid://n51s73nqvxbn" path="res://addons/multidirectionnal joystick/textures/smaller_2.svg" id="10_gtf4y"]
 [ext_resource type="PackedScene" uid="uid://m53a6yq4sm2v" path="res://src/actors/player/player.tscn" id="10_oi50e"]
+[ext_resource type="Script" path="res://src/ui/time_out_screen.gd" id="10_vu05o"]
+[ext_resource type="Script" path="res://src/ui/lose_screen.gd" id="11_lc0na"]
+[ext_resource type="Script" path="res://src/ui/timer.gd" id="12_my16e"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_42kn3"]
 bg_color = Color(0.882353, 0.666667, 0.835294, 1)
@@ -123,6 +123,7 @@ theme_override_constants/separation = 80
 alignment = 1
 
 [node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Panel/VBoxContainer"]
+visible = false
 layout_mode = 2
 
 [node name="Control2" type="Control" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Panel/VBoxContainer/CenterContainer"]
@@ -137,6 +138,7 @@ texture_pressed = ExtResource("3_8gwhs")
 action = "focus"
 
 [node name="CenterContainer2" type="CenterContainer" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Panel/VBoxContainer"]
+visible = false
 layout_mode = 2
 
 [node name="Control" type="Control" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Panel/VBoxContainer/CenterContainer2"]
@@ -152,6 +154,7 @@ texture_pressed = ExtResource("3_8gwhs")
 action = "shoot"
 
 [node name="CenterContainer3" type="CenterContainer" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Panel/VBoxContainer"]
+visible = false
 layout_mode = 2
 
 [node name="Control" type="Control" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Panel/VBoxContainer/CenterContainer3"]
@@ -186,62 +189,23 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 2
 
-[node name="DPad" type="Control" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Panel2/VBoxContainer2"]
-custom_minimum_size = Vector2(300, 300)
+[node name="Control" type="Control" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Panel2/VBoxContainer2"]
 layout_mode = 2
-mouse_filter = 2
-
-[node name="MultidirectionnalJoystick" type="Node2D" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Panel2/VBoxContainer2/DPad"]
-script = ExtResource("7_0yn3g")
-bigger_texture = ExtResource("8_t4lsc")
-small_texture = ExtResource("10_gtf4y")
-sensitivity_area = 72.769
-dead_margin = 20.0
-
-[node name="TouchScreenButton" type="TouchScreenButton" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Panel2/VBoxContainer2/DPad"]
-visible = false
-position = Vector2(8, -8)
-scale = Vector2(8, 8)
-texture_normal = ExtResource("8_40t48")
-passby_press = true
-action = "ui_up"
-
-[node name="TouchScreenButton2" type="TouchScreenButton" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Panel2/VBoxContainer2/DPad"]
-visible = false
-position = Vector2(-80, 80)
-scale = Vector2(8, 8)
-texture_normal = ExtResource("8_40t48")
-passby_press = true
-action = "ui_left"
-
-[node name="TouchScreenButton3" type="TouchScreenButton" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Panel2/VBoxContainer2/DPad"]
-visible = false
-position = Vector2(8, 167)
-scale = Vector2(8, 8)
-texture_normal = ExtResource("8_40t48")
-passby_press = true
-action = "ui_down"
-
-[node name="TouchScreenButton4" type="TouchScreenButton" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Panel2/VBoxContainer2/DPad"]
-visible = false
-position = Vector2(96, 80)
-scale = Vector2(8, 8)
-texture_normal = ExtResource("8_40t48")
-passby_press = true
-action = "ui_right"
 
 [node name="HSeparator" type="HSeparator" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Panel2/VBoxContainer2"]
 layout_mode = 2
 mouse_filter = 1
-theme_override_constants/separation = 144
+theme_override_constants/separation = 500
 theme_override_styles/separator = SubResource("StyleBoxEmpty_mhi1o")
 
 [node name="Player" parent="." node_paths=PackedStringArray("LEVEL_BOUND") instance=ExtResource("10_oi50e")]
+position = Vector2(0, 32)
 LEVEL_BOUND = NodePath("../Bound/CollisionShape2D")
 
 [node name="BulletHolder" type="Node2D" parent="." groups=["BulletHolder"]]
 
 [node name="Bam" parent="." instance=ExtResource("8_iu117")]
+position = Vector2(0, -24)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(8, 8)
@@ -250,3 +214,125 @@ zoom = Vector2(8, 8)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bound" groups=["LevelBound"]]
 shape = SubResource("RectangleShape2D_jkgvj")
+
+[node name="CanvasLayer3" type="CanvasLayer" parent="."]
+
+[node name="Win" type="Panel" parent="CanvasLayer3" node_paths=PackedStringArray("rtl") groups=["WinScreen"]]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("9_apx10")
+rtl = NodePath("CenterContainer/MarginContainer/RichTextLabel")
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer3/Win"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer3/Win/CenterContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 800
+theme_override_constants/margin_top = 400
+theme_override_constants/margin_right = 800
+theme_override_constants/margin_bottom = 400
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer3/Win/CenterContainer/MarginContainer"]
+custom_minimum_size = Vector2(1200, 0)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 64
+theme_override_font_sizes/italics_font_size = 64
+bbcode_enabled = true
+text = "[center][Bam] has been defeated
+
+Level Completed = 1000
+Time Bonus = 1 x 1000 = 1000
+Graze Bonus = 25500 x 1 = 25500
+
+New Character Unlocked!
+[i][Double tap to continue]"
+fit_content = true
+
+[node name="TimeOut" type="Panel" parent="CanvasLayer3" groups=["TimeOutScreen"]]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("10_vu05o")
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer3/TimeOut"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer3/TimeOut/CenterContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 800
+theme_override_constants/margin_top = 400
+theme_override_constants/margin_right = 800
+theme_override_constants/margin_bottom = 400
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer3/TimeOut/CenterContainer/MarginContainer"]
+custom_minimum_size = Vector2(1200, 0)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 64
+theme_override_font_sizes/italics_font_size = 64
+bbcode_enabled = true
+text = "[center][You] had ran out of time
+
+[i][Double tap to continue]"
+fit_content = true
+
+[node name="Defeat" type="Panel" parent="CanvasLayer3" groups=["LoseScreen"]]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("11_lc0na")
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer3/Defeat"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer3/Defeat/CenterContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 800
+theme_override_constants/margin_top = 400
+theme_override_constants/margin_right = 800
+theme_override_constants/margin_bottom = 400
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer3/Defeat/CenterContainer/MarginContainer"]
+custom_minimum_size = Vector2(1200, 0)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 64
+theme_override_font_sizes/italics_font_size = 64
+bbcode_enabled = true
+text = "[center][You] have been defeated
+
+[i][Double tap to continue]"
+fit_content = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer3" groups=["Timer"]]
+offset_left = 1740.0
+offset_top = 24.0
+offset_right = 2009.0
+offset_bottom = 199.0
+theme_override_font_sizes/normal_font_size = 64
+text = "600"
+script = ExtResource("12_my16e")
