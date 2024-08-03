@@ -1,0 +1,56 @@
+[gd_scene load_steps=4 format=3 uid="uid://m53a6yq4sm2v"]
+
+[ext_resource type="Texture2D" uid="uid://c73tfg26hfqkw" path="res://assets/textures/players/tappy/tappy.png" id="1_bker2"]
+[ext_resource type="Script" path="res://src/actors/player/BasePlayer.gd" id="2_s4mg0"]
+[ext_resource type="Texture2D" uid="uid://be2waq32vlwp2" path="res://assets/textures/players/tappy/ShootPosIndicator.png" id="3_x8dvc"]
+
+[node name="Player" type="Sprite2D" node_paths=PackedStringArray("normal_shoot_pos_marker", "focus_shoot_pos_marker", "shoot_pos_indicator") groups=["Player"]]
+texture = ExtResource("1_bker2")
+script = ExtResource("2_s4mg0")
+normal_shoot_pos_marker = [NodePath("NormalPosMarkers/Marker2D"), NodePath("NormalPosMarkers/Marker2D2"), NodePath("NormalPosMarkers/Marker2D3"), NodePath("NormalPosMarkers/Marker2D4")]
+focus_shoot_pos_marker = [NodePath("FocusPosMarkers/Marker2D"), NodePath("FocusPosMarkers/Marker2D2"), NodePath("FocusPosMarkers/Marker2D3"), NodePath("FocusPosMarkers/Marker2D4")]
+shoot_pos_indicator = [NodePath("ShootPosIndicators/Sprite2D"), NodePath("ShootPosIndicators/Sprite2D2"), NodePath("ShootPosIndicators/Sprite2D3"), NodePath("ShootPosIndicators/Sprite2D4")]
+
+[node name="FocusPosMarkers" type="Node2D" parent="."]
+position = Vector2(0, 2)
+
+[node name="Marker2D" type="Marker2D" parent="FocusPosMarkers"]
+position = Vector2(-3, -9)
+
+[node name="Marker2D2" type="Marker2D" parent="FocusPosMarkers"]
+position = Vector2(3, -9)
+
+[node name="Marker2D3" type="Marker2D" parent="FocusPosMarkers"]
+position = Vector2(-5, -6)
+
+[node name="Marker2D4" type="Marker2D" parent="FocusPosMarkers"]
+position = Vector2(5, -6)
+
+[node name="NormalPosMarkers" type="Node2D" parent="."]
+position = Vector2(0, 2)
+
+[node name="Marker2D" type="Marker2D" parent="NormalPosMarkers"]
+position = Vector2(-5, -12)
+
+[node name="Marker2D2" type="Marker2D" parent="NormalPosMarkers"]
+position = Vector2(5, -12)
+
+[node name="Marker2D3" type="Marker2D" parent="NormalPosMarkers"]
+position = Vector2(-10, -7)
+
+[node name="Marker2D4" type="Marker2D" parent="NormalPosMarkers"]
+position = Vector2(10, -7)
+
+[node name="ShootPosIndicators" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="ShootPosIndicators"]
+texture = ExtResource("3_x8dvc")
+
+[node name="Sprite2D2" type="Sprite2D" parent="ShootPosIndicators"]
+texture = ExtResource("3_x8dvc")
+
+[node name="Sprite2D3" type="Sprite2D" parent="ShootPosIndicators"]
+texture = ExtResource("3_x8dvc")
+
+[node name="Sprite2D4" type="Sprite2D" parent="ShootPosIndicators"]
+texture = ExtResource("3_x8dvc")

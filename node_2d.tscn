@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://c7p3in4pyam46"]
+
+[ext_resource type="Script" path="res://addons/multidirectionnal joystick/script/joystick.gd" id="1_vridt"]
+[ext_resource type="Texture2D" uid="uid://binbbs1n05hjp" path="res://addons/multidirectionnal joystick/textures/bigger.svg" id="2_boir7"]
+[ext_resource type="Texture2D" uid="uid://n51s73nqvxbn" path="res://addons/multidirectionnal joystick/textures/smaller_2.svg" id="3_aoo21"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="MultidirectionnalJoystick" type="Node2D" parent="."]
+position = Vector2(1393, 841)
+script = ExtResource("1_vridt")
+bigger_texture = ExtResource("2_boir7")
+small_texture = ExtResource("3_aoo21")
+sensitivity_area = 72.769
+dead_margin = 20.0

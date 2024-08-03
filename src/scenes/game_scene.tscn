@@ -1,0 +1,252 @@
+[gd_scene load_steps=19 format=3 uid="uid://oyoxl2uptaci"]
+
+[ext_resource type="Texture2D" uid="uid://qq1crrq2qms4" path="res://assets/textures/ui/buttons/focus.png" id="3_8gwhs"]
+[ext_resource type="Texture2D" uid="uid://058e3st72db7" path="res://assets/textures/background/clouds/cloud_2.png" id="5_5tipq"]
+[ext_resource type="Script" path="res://src/ui/ScrollingSprite2D.gd" id="6_g4xwc"]
+[ext_resource type="Script" path="res://addons/multidirectionnal joystick/script/joystick.gd" id="7_0yn3g"]
+[ext_resource type="Texture2D" uid="uid://b6xfe6eixe1yg" path="res://assets/textures/background/clouds/cloud_3.png" id="7_pbnwr"]
+[ext_resource type="Texture2D" uid="uid://cigi30bwx3dhp" path="res://assets/textures/background/clouds/cloud_4.png" id="8_1iq0f"]
+[ext_resource type="Texture2D" uid="uid://bdxas4gmvdbum" path="res://assets/textures/ui/buttons/circle.png" id="8_40t48"]
+[ext_resource type="PackedScene" uid="uid://bsaq8woksonnb" path="res://src/actors/enemies/bam/bam.tscn" id="8_iu117"]
+[ext_resource type="Texture2D" uid="uid://binbbs1n05hjp" path="res://addons/multidirectionnal joystick/textures/bigger.svg" id="8_t4lsc"]
+[ext_resource type="Texture2D" uid="uid://ckfs61nplbu5t" path="res://assets/textures/background/clouds/cloud_5.png" id="9_nen7m"]
+[ext_resource type="Texture2D" uid="uid://n51s73nqvxbn" path="res://addons/multidirectionnal joystick/textures/smaller_2.svg" id="10_gtf4y"]
+[ext_resource type="PackedScene" uid="uid://m53a6yq4sm2v" path="res://src/actors/player/player.tscn" id="10_oi50e"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_42kn3"]
+bg_color = Color(0.882353, 0.666667, 0.835294, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yox3u"]
+bg_color = Color(0.801537, 0.714158, 0.94499, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w7a3p"]
+bg_color = Color(0.882353, 0.666667, 0.835294, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mhecs"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mhi1o"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jkgvj"]
+size = Vector2(170, 130)
+
+[node name="GameScene" type="Node2D"]
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="Panel2" type="Panel" parent="CanvasLayer2"]
+z_as_relative = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_42kn3")
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer2"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="CanvasLayer2/CenterContainer"]
+custom_minimum_size = Vector2(1440, 1080)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_yox3u")
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer2/CenterContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="CanvasLayer2/CenterContainer/Panel/CenterContainer"]
+layout_mode = 2
+mouse_filter = 1
+
+[node name="ScrollingBackground" type="Node2D" parent="CanvasLayer2/CenterContainer/Panel/CenterContainer/Control"]
+position = Vector2(0, -540)
+scale = Vector2(8, 8)
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer2/CenterContainer/Panel/CenterContainer/Control/ScrollingBackground"]
+texture = ExtResource("5_5tipq")
+script = ExtResource("6_g4xwc")
+SPEED = 1
+
+[node name="Sprite2D2" type="Sprite2D" parent="CanvasLayer2/CenterContainer/Panel/CenterContainer/Control/ScrollingBackground"]
+texture = ExtResource("7_pbnwr")
+script = ExtResource("6_g4xwc")
+SPEED = 2
+
+[node name="Sprite2D3" type="Sprite2D" parent="CanvasLayer2/CenterContainer/Panel/CenterContainer/Control/ScrollingBackground"]
+texture = ExtResource("8_1iq0f")
+script = ExtResource("6_g4xwc")
+SPEED = 4
+
+[node name="Sprite2D4" type="Sprite2D" parent="CanvasLayer2/CenterContainer/Panel/CenterContainer/Control/ScrollingBackground"]
+texture = ExtResource("9_nen7m")
+script = ExtResource("6_g4xwc")
+SPEED = 8
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+ratio = 1.7778
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/AspectRatioContainer"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="CanvasLayer/AspectRatioContainer/HBoxContainer"]
+custom_minimum_size = Vector2(240, 1080)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_w7a3p")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 80
+alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Control2" type="Control" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Panel/VBoxContainer/CenterContainer"]
+custom_minimum_size = Vector2(0, 96)
+layout_mode = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Panel/VBoxContainer/CenterContainer/Control2"]
+position = Vector2(-96, 0)
+scale = Vector2(8, 8)
+texture_normal = ExtResource("3_8gwhs")
+texture_pressed = ExtResource("3_8gwhs")
+action = "focus"
+
+[node name="CenterContainer2" type="CenterContainer" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Panel/VBoxContainer/CenterContainer2"]
+custom_minimum_size = Vector2(0, 96)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Panel/VBoxContainer/CenterContainer2/Control"]
+position = Vector2(-96, 0)
+scale = Vector2(8, 8)
+texture_normal = ExtResource("3_8gwhs")
+texture_pressed = ExtResource("3_8gwhs")
+action = "shoot"
+
+[node name="CenterContainer3" type="CenterContainer" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Panel/VBoxContainer/CenterContainer3"]
+custom_minimum_size = Vector2(0, 96)
+layout_mode = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Panel/VBoxContainer/CenterContainer3/Control"]
+position = Vector2(-96, 0)
+scale = Vector2(8, 8)
+texture_normal = ExtResource("3_8gwhs")
+texture_pressed = ExtResource("3_8gwhs")
+action = "focus"
+
+[node name="VSeparator" type="VSeparator" parent="CanvasLayer/AspectRatioContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 180
+theme_override_styles/separator = SubResource("StyleBoxEmpty_mhecs")
+
+[node name="Panel2" type="Panel" parent="CanvasLayer/AspectRatioContainer/HBoxContainer"]
+custom_minimum_size = Vector2(240, 1080)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_w7a3p")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Panel2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 2
+
+[node name="DPad" type="Control" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Panel2/VBoxContainer2"]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="MultidirectionnalJoystick" type="Node2D" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Panel2/VBoxContainer2/DPad"]
+script = ExtResource("7_0yn3g")
+bigger_texture = ExtResource("8_t4lsc")
+small_texture = ExtResource("10_gtf4y")
+sensitivity_area = 72.769
+dead_margin = 20.0
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Panel2/VBoxContainer2/DPad"]
+visible = false
+position = Vector2(8, -8)
+scale = Vector2(8, 8)
+texture_normal = ExtResource("8_40t48")
+passby_press = true
+action = "ui_up"
+
+[node name="TouchScreenButton2" type="TouchScreenButton" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Panel2/VBoxContainer2/DPad"]
+visible = false
+position = Vector2(-80, 80)
+scale = Vector2(8, 8)
+texture_normal = ExtResource("8_40t48")
+passby_press = true
+action = "ui_left"
+
+[node name="TouchScreenButton3" type="TouchScreenButton" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Panel2/VBoxContainer2/DPad"]
+visible = false
+position = Vector2(8, 167)
+scale = Vector2(8, 8)
+texture_normal = ExtResource("8_40t48")
+passby_press = true
+action = "ui_down"
+
+[node name="TouchScreenButton4" type="TouchScreenButton" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Panel2/VBoxContainer2/DPad"]
+visible = false
+position = Vector2(96, 80)
+scale = Vector2(8, 8)
+texture_normal = ExtResource("8_40t48")
+passby_press = true
+action = "ui_right"
+
+[node name="HSeparator" type="HSeparator" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Panel2/VBoxContainer2"]
+layout_mode = 2
+mouse_filter = 1
+theme_override_constants/separation = 144
+theme_override_styles/separator = SubResource("StyleBoxEmpty_mhi1o")
+
+[node name="Player" parent="." node_paths=PackedStringArray("LEVEL_BOUND") instance=ExtResource("10_oi50e")]
+LEVEL_BOUND = NodePath("../Bound/CollisionShape2D")
+
+[node name="BulletHolder" type="Node2D" parent="." groups=["BulletHolder"]]
+
+[node name="Bam" parent="." instance=ExtResource("8_iu117")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(8, 8)
+
+[node name="Bound" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bound" groups=["LevelBound"]]
+shape = SubResource("RectangleShape2D_jkgvj")

@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://bsaq8woksonnb"]
+
+[ext_resource type="Texture2D" uid="uid://djcqth7mdtqti" path="res://assets/textures/enemies/bosses/bam/bam.png" id="1_j3w6h"]
+[ext_resource type="Script" path="res://src/actors/enemies/bam/bam.gd" id="2_mx0eh"]
+[ext_resource type="Texture2D" uid="uid://bebtg2p22gtc1" path="res://assets/textures/ui/boss_health_bar.png" id="3_rv2a0"]
+[ext_resource type="Script" path="res://src/ui/BossHealthBar.gd" id="5_i0hau"]
+
+[node name="Bam" type="Sprite2D" node_paths=PackedStringArray("health_bar")]
+texture = ExtResource("1_j3w6h")
+script = ExtResource("2_mx0eh")
+health_bar = NodePath("ProgressBar")
+MAX_HEALTH = 200.0
+
+[node name="ProgressBar" type="TextureProgressBar" parent="."]
+offset_left = -24.0
+offset_top = -24.0
+offset_right = 24.0
+offset_bottom = 24.0
+value = 50.0
+fill_mode = 4
+texture_under = ExtResource("3_rv2a0")
+texture_progress = ExtResource("3_rv2a0")
+tint_under = Color(0, 0, 0, 1)
+tint_progress = Color(0.988235, 0.913725, 0.686275, 1)
+script = ExtResource("5_i0hau")

@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://wgtungv4l4j1"]
+
+[ext_resource type="Texture2D" uid="uid://cw1b247a31pq6" path="res://assets/textures/bullets/bullets.png" id="1_y182b"]
+[ext_resource type="Script" path="res://src/actors/bullet.gd" id="2_g0rmb"]
+
+[node name="Bullet" type="Sprite2D"]
+texture = ExtResource("1_y182b")
+region_enabled = true
+region_rect = Rect2(0, 0, 8, 8)
+script = ExtResource("2_g0rmb")
