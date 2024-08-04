@@ -9,7 +9,7 @@ func _ready():
 	var player_holder = get_tree().get_first_node_in_group("PlayerHolder")
 	var boss_holder = get_tree().get_first_node_in_group("BossHolder")
 	var scene_to_load
-	match GameData.get_data("selected_character", 0):
+	match int(GameData.get_data("selected_character", 0)):
 		0:
 			scene_to_load = preload("res://src/actors/player/tappy/tappy.tscn")
 		1:
@@ -23,7 +23,7 @@ func _ready():
 	player.global_position = player_holder.global_position
 	player.bomb_used.connect(bomb_counter.set_display)
 	player.health_changed.connect(health_counter.set_display.bind(3))
-	match GameData.get_data("selected_boss", 0):
+	match int(GameData.get_data("selected_boss", 0)):
 		0:
 			scene_to_load = load("res://src/actors/enemies/bam/bam.tscn")
 		1:

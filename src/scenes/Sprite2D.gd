@@ -8,10 +8,9 @@ extends Sprite2D
 @export var desc_rtl: RichTextLabel
 @export var sprite: Sprite2D
 
-var index = 0
+@export var flag: String
 
-func _ready():
-	load_data(index)
+var index = 0
 
 func _on_touch_screen_button_pressed():
 	index += 1
@@ -25,6 +24,8 @@ func load_data(index):
 	if desc_rtl:
 		desc_rtl.text = descs[index]
 	sprite.texture = textures[index]
+	
+	GameData.set_data(flag, index)
 
 
 func _on_touch_screen_button_2_pressed():

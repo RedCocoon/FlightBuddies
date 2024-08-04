@@ -1,7 +1,7 @@
 extends Sprite2D
 
 func _ready():
-	pass
+	AudioManager.play("fall", -10)
 
 func _on_animation_player_animation_finished(anim_name):
 	var bullet_holder = get_tree().get_first_node_in_group("BulletHolder")

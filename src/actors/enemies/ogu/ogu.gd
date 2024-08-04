@@ -6,6 +6,7 @@ var vine_rose_delay = 3
 
 func _ready():
 	super()
+	AudioManager.play_bgm("vs_ogu")
 
 func _process(delta):
 	if Input.is_action_just_pressed("debug"):

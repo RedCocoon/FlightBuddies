@@ -42,7 +42,8 @@ var atlas_data = {
 		"speed": 95,
 		"sprite_size": [4, 4],
 		"target_type": TARGET_TYPES.ENEMY,
-		"damage": 0.25
+		"damage": 0.25,
+		"impact_volume": -30
 	},
 	BULLET_TYPES.SMALL_BLUE: {
 		"pos": [0, 0],
@@ -103,7 +104,8 @@ func get_bullet_data(type: BULLET_TYPES) -> Array:
 	var target_type = data.get("target_type", TARGET_TYPES.PLAYER)
 	var damage = data.get("damage", 1)
 	var track_type = data.get("track", TRACK_TYPES.NONE)
-	return [Rect2i(pos[0]*8, pos[1]*8, size[0]*8, size[1]*8), speed, sprite_size, target_type, damage, track_type]
+	var impact_volume = data.get("impact_volume", -25)
+	return [Rect2i(pos[0]*8, pos[1]*8, size[0]*8, size[1]*8), speed, sprite_size, target_type, damage, track_type, impact_volume]
 	
 
 func _ready():

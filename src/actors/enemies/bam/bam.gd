@@ -12,7 +12,7 @@ var attack_delay = MAX_HEART_DELAY
 
 var available_attacks := []
 
-enum ATTACKS {CRYSTAL_SHARDS, BURST}
+enum ATTACKS {CRYSTAL_SHARDS, BURST, CRYSTAL_SHARDS_STAGERRED}
 
 func _ready():
 	super()
@@ -54,7 +54,8 @@ func attack():
 			for i in range(8):
 				var bullet = BulletData.summon_bullet(global_position+(16*Vector2.LEFT.rotated(i*2*PI/8.0)), 0, BulletData.BULLET_TYPES.BAM_SHARD)
 				bullet.delay = 0.8 - (i/10.0)
-				AudioManager.play("bullet/shoot_heavy", 1)
+				AudioManager.play("bullet/shoot_glass", 1)
+				get_tree().create_timer(bullet.delay).timeout.connect(thonk)
 				await get_tree().create_timer(0.1).timeout
 			attack_delay = MAX_ATTACK_DELAY
 		ATTACKS.BURST:
@@ -65,14 +66,28 @@ func attack():
 				await get_tree().create_timer(0.1).timeout
 			attack_delay = MAX_ATTACK_DELAY
 			heart_delay = MAX_HEART_DELAY
+		ATTACKS.CRYSTAL_SHARDS_STAGERRED:
+			for i in range(8):
+				var bullet = BulletData.summon_bullet(global_position+(16*Vector2.LEFT.rotated(i*2*PI/8.0)), 0, BulletData.BULLET_TYPES.BAM_SHARD)
+				bullet.delay = 0.3
+				AudioManager.play("bullet/shoot_glass", -5)
+				get_tree().create_timer(0.3).timeout.connect(thonk)
+				await get_tree().create_timer(0.1).timeout
+			attack_delay = MAX_ATTACK_DELAY
+
+func thonk():
+	AudioManager.play("bullet/glass_thonk")
 
 func die():
 	dead = true
 	lives -= 1
-	if MAX_LIVES-lives > 2 and not ATTACKS.CRYSTAL_SHARDS in available_attacks:
+	if MAX_LIVES-lives > 1 and not ATTACKS.CRYSTAL_SHARDS in available_attacks:
 		available_attacks.append(ATTACKS.CRYSTAL_SHARDS)
-	if MAX_LIVES-lives > 4 and not ATTACKS.BURST in available_attacks:
+	if MAX_LIVES-lives > 3 and not ATTACKS.BURST in available_attacks:
 		available_attacks.append(ATTACKS.BURST)
+	if MAX_LIVES-lives > 5 and not ATTACKS.CRYSTAL_SHARDS_STAGERRED in available_attacks:
+		available_attacks.append(ATTACKS.CRYSTAL_SHARDS_STAGERRED)
+		
 	if lives <= 0:
 		GameData.show_win_screen("Bam")
 		return

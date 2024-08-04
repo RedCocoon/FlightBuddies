@@ -17,6 +17,12 @@ var variants = {
 		"bullet/crunch1",
 		"bullet/crunch2",
 		"bullet/crunch3",
+	],
+	"hit": [
+		"hit1",
+		"hit2",
+		"hit3",
+		"hit4",
 	]
 }
 

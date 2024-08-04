@@ -9,6 +9,7 @@ var graze_distance : Vector2 = Vector2.ZERO
 var active : bool = false
 var unique : bool = false
 var damage : float = 1
+var impact_volume : float = 0
 var size : Vector2 = Vector2.ZERO
 var target_type: BulletData.TARGET_TYPES = BulletData.TARGET_TYPES.PLAYER
 var track_type: BulletData.TRACK_TYPES = BulletData.TRACK_TYPES.NONE
@@ -68,7 +69,7 @@ func try_hit(target: Node2D):
 	var y_distance = abs(target.global_position.y - global_position.y) - hit_correction
 	if (x_distance < hit_distance.x and y_distance < hit_distance.y):
 		if (target.has_method("hit")):
-			#AudioManager.play("bullet/hit")
+			AudioManager.play("hit", impact_volume)
 			target.hit(damage)
 		BulletData.deactivate_bullet(self)
 		return
@@ -88,6 +89,7 @@ func initiate(type: BulletData.BULLET_TYPES):
 	target_type = data[3]
 	damage = data[4]
 	track_type = data[5]
+	impact_volume = data[6]
 	
 	var sprite_size = data[2]
 	if target_type == BulletData.TARGET_TYPES.PLAYER:

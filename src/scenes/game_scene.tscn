@@ -34,6 +34,7 @@ bg_color = Color(0.882353, 0.666667, 0.835294, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dj3cp"]
 bg_color = Color(1, 0, 0, 0.686275)
+draw_center = false
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jkgvj"]
 size = Vector2(170, 130)
