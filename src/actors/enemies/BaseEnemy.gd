@@ -28,6 +28,4 @@ func hit(amount:float):
 func die():
 	dead = true
 
-func _physics_process(delta):
-	if Input.is_action_just_pressed("debug"):
-		hit(100)
+

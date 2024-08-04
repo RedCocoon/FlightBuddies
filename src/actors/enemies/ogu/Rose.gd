@@ -12,6 +12,7 @@ func _ready():
 	twe.tween_property(self, "modulate", Color("DDDDDD00"), randf_range(3.0, 9.0) * rose_life_modifier)
 	twe.finished.connect(_on_tween_finished)
 	AudioManager.play("bullet/crunch")
+	add_self_to_list()
 
 func die():
 	super()

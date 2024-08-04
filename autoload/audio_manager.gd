@@ -1,5 +1,7 @@
 extends Node
 
+var available_asp = []
+
 var variants = {
 	"bullet/shoot_hard": [
 		"bullet/shoot1",
@@ -31,8 +33,12 @@ func play(sound: String, volume_db: float = 1):
 	if variants.keys().has(to_play):
 		to_play = variants[sound].pick_random()
 	var s = load("res://assets/sfx/%s.ogg"%to_play)
-	var asp = AudioStreamPlayer.new()
-	add_child(asp)
+	var asp
+	if available_asp.is_empty():
+		asp = AudioStreamPlayer.new()
+		add_child(asp)
+	else:
+		asp = available_asp.pop_back()
 	asp.volume_db = volume_db
 	asp.stream = s
 	asp.play()
@@ -41,7 +47,7 @@ func play(sound: String, volume_db: float = 1):
 
 func kill_stream(asp):
 	if is_instance_valid(asp):
-		asp.queue_free()
+		available_asp.append(asp)
 
 @onready var bgm_asp = AudioStreamPlayer.new()
 func _ready():

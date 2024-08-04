@@ -57,7 +57,7 @@ _data = {
 "spawn": SubResource("Animation_1xact")
 }
 
-[node name="Rose" type="Sprite2D"]
+[node name="Rose" type="Sprite2D" groups=["Enemy"]]
 z_index = -1
 texture = ExtResource("1_ftqma")
 script = ExtResource("1_7qgbg")
