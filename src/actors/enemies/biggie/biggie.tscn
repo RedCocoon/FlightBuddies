@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://hnkgv41vkm7r"]
+
+[ext_resource type="Texture2D" uid="uid://c7l1vwna5yfgv" path="res://assets/textures/enemies/bosses/biggie/biggie.png" id="1_ic3bj"]
+[ext_resource type="Script" path="res://src/actors/enemies/biggie/biggie.gd" id="2_5q7x1"]
+[ext_resource type="Texture2D" uid="uid://bebtg2p22gtc1" path="res://assets/textures/ui/boss_health_bar.png" id="3_oxjro"]
+[ext_resource type="Script" path="res://src/ui/BossHealthBar.gd" id="4_0r0ye"]
+
+[node name="Biggie" type="Sprite2D" groups=["Boss"]]
+z_index = -2
+texture = ExtResource("1_ic3bj")
+script = ExtResource("2_5q7x1")
+MAX_HEALTH = 1000.0
+
+[node name="ProgressBar" type="TextureProgressBar" parent="."]
+offset_left = -24.0
+offset_top = -24.0
+offset_right = 24.0
+offset_bottom = 24.0
+value = 50.0
+fill_mode = 4
+texture_under = ExtResource("3_oxjro")
+texture_progress = ExtResource("3_oxjro")
+tint_under = Color(0, 0, 0, 1)
+tint_progress = Color(0.988235, 0.913725, 0.686275, 1)
+script = ExtResource("4_0r0ye")
+
+[node name="RoseTimer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[node name="ShardTimer" type="Timer" parent="."]
+wait_time = 8.0
+autostart = true
+
+[node name="LaserTimer" type="Timer" parent="."]
+wait_time = 11.0
+autostart = true
+
+[connection signal="timeout" from="RoseTimer" to="." method="_on_rose_timer_timeout"]
+[connection signal="timeout" from="ShardTimer" to="." method="_on_shard_timer_timeout"]
+[connection signal="timeout" from="LaserTimer" to="." method="_on_laser_timer_timeout"]

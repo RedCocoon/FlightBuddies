@@ -9,8 +9,6 @@ func _ready():
 	AudioManager.play_bgm("vs_ogu")
 
 func _process(delta):
-	if Input.is_action_just_pressed("debug"):
-		spawn_vine()
 	if vine and health <= MAX_HEALTH / 4.0:
 		if vine_rose_delay > 0:
 			vine_rose_delay -= delta

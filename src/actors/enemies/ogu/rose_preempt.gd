@@ -1,5 +1,7 @@
 extends Sprite2D
 
+var rose_life_modifier = 1
+
 func _ready():
 	AudioManager.play("fall", -10)
 
@@ -9,4 +11,5 @@ func _on_animation_player_animation_finished(anim_name):
 	var child = rose_scene.instantiate()
 	bullet_holder.add_child(child)
 	child.global_position = global_position
+	child.rose_life_modifier = rose_life_modifier
 	queue_free()

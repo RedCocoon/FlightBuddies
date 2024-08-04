@@ -13,6 +13,8 @@ signal health_changed(float)
 func _ready():
 	health = MAX_HEALTH
 	health_changed.emit(health)
+
+func add_self_to_list():
 	BulletData.enemy_targets.append(self)
 
 func hit(amount:float):
@@ -25,3 +27,7 @@ func hit(amount:float):
 
 func die():
 	dead = true
+
+func _physics_process(delta):
+	if Input.is_action_just_pressed("debug"):
+		hit(100)

@@ -1,2 +1,16 @@
 # Godot 4+ specific ignores
 .godot/
+export/FlightBuddies.apk
+export/html.apple-touch-icon.png
+export/html.apple-touch-icon.png.import
+export/html.audio.worklet.js
+export/html.html
+export/html.icon.png
+export/html.icon.png.import
+export/html.js
+export/html.pck
+export/html.png
+export/html.png.import
+export/html.wasm
+export/html.worker.js
+export_presets.cfg

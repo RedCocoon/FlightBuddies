@@ -13,4 +13,5 @@ func _ready():
 
 func _on_touch_screen_button_3_pressed():
 	AudioManager.play("confirm")
+	GameData.game_finished = false
 	get_tree().change_scene_to_file("res://src/scenes/game_scene.tscn")

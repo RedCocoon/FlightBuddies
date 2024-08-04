@@ -11,6 +11,7 @@ var MAX_BOMB = 3
 var bomb = MAX_BOMB
 
 var invulnerable = false
+@onready var level_bound: CollisionShape2D = get_tree().get_first_node_in_group("LevelBound")
 
 signal bomb_used(count, max_count)
 signal health_changed(float)
@@ -30,7 +31,9 @@ func _input(event):
 			activate_bomb()
 	if event is InputEventScreenDrag:
 		if tracking:
-			global_position = get_global_from_screen(event.position) + relative_position
+			var new_pos: Vector2 = (get_global_from_screen(event.position) + relative_position)
+			var rect: Rect2 = level_bound.shape.get_rect()
+			global_position = new_pos.clamp(rect.position, rect.position+(rect.size))
 
 func get_global_from_screen(screen_pos):
 	return (get_viewport().get_screen_transform() * get_viewport().get_canvas_transform()).affine_inverse() * screen_pos

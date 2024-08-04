@@ -318,6 +318,7 @@ position = Vector2(0, 40)
 zoom = Vector2(8, 8)
 
 [node name="BossHolder" type="Node2D" parent="." groups=["BossHolder"]]
+position = Vector2(0, -34)
 
 [node name="Bound" type="StaticBody2D" parent="."]
 

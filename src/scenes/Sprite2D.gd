@@ -9,28 +9,33 @@ extends Sprite2D
 @export var sprite: Sprite2D
 
 @export var flag: String
+@export var min_index: int
+@export var max_index: int
 
 var index = 0
 
 func _on_touch_screen_button_pressed():
 	index += 1
-	if index >= 4:
-		index = 0
 	AudioManager.play("switch")
 	load_data(index)
 
-func load_data(index):
-	name_rtl.text = names[index]
+func load_data(ix):
+	if ix > max_index:
+		index = min_index
+		ix = index
+	if ix < min_index:
+		index = max_index
+		ix = index
+
+	name_rtl.text = names[ix]
 	if desc_rtl:
-		desc_rtl.text = descs[index]
-	sprite.texture = textures[index]
+		desc_rtl.text = descs[ix]
+	sprite.texture = textures[ix]
 	
 	GameData.set_data(flag, index)
 
 
 func _on_touch_screen_button_2_pressed():
 	index += 1
-	if index >= 4:
-		index = 0
 	AudioManager.play("switch")
 	load_data(index)

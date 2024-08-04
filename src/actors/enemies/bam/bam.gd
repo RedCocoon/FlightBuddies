@@ -12,16 +12,17 @@ var attack_delay = MAX_HEART_DELAY
 
 var available_attacks := []
 
+var original_position := Vector2.ZERO
+
 enum ATTACKS {CRYSTAL_SHARDS, BURST, CRYSTAL_SHARDS_STAGERRED}
 
 func _ready():
 	super()
 	AudioManager.play_bgm("vs_bam")
 	health_bar.tint_under = Color("d87f5d")
+	original_position = global_position
 
 func _process(delta):
-	if Input.is_action_just_pressed("debug"):
-		hit(999)
 	if lives != MAX_LIVES:
 		heart_delay -= delta
 		if heart_delay <= 0:
@@ -42,8 +43,9 @@ func wander(delta):
 	anim_cycle_angle += delta
 	if anim_cycle_angle > 2*PI:
 		anim_cycle_angle = 0
-	position.y = sin(anim_cycle_angle)
-	position.x = cos(anim_cycle_angle)*10
+	global_position.y = original_position.y + sin(anim_cycle_angle)
+	global_position.x = original_position.x + cos(anim_cycle_angle)*10
+
 
 func attack():
 	if available_attacks.is_empty():

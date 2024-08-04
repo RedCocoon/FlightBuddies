@@ -1,5 +1,6 @@
 extends BaseEnemy
 
+var rose_life_modifier = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -8,7 +9,7 @@ func _ready():
 	health = 5
 	hit_radius = 12
 	var twe = get_tree().create_tween()
-	twe.tween_property(self, "modulate", Color("DDDDDD00"), randf_range(3.0, 9.0))
+	twe.tween_property(self, "modulate", Color("DDDDDD00"), randf_range(3.0, 9.0) * rose_life_modifier)
 	twe.finished.connect(_on_tween_finished)
 	AudioManager.play("bullet/crunch")
 

@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://b461mggryxa2c"]
+
+[ext_resource type="Texture2D" uid="uid://dvutpmusybu5c" path="res://assets/textures/enemies/bosses/biggie/laser.png" id="1_uewa6"]
+[ext_resource type="Script" path="res://src/actors/enemies/biggie/laser.gd" id="2_2v1ue"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lx05k"]
+size = Vector2(2, 240)
+
+[node name="Node2D" type="Line2D" node_paths=PackedStringArray("area")]
+points = PackedVector2Array(0, -120, 0, 120)
+texture = ExtResource("1_uewa6")
+texture_mode = 1
+script = ExtResource("2_2v1ue")
+area = NodePath("Area2D")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_lx05k")

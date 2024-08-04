@@ -31,7 +31,7 @@ func _ready():
 		2:
 			scene_to_load = preload("res://src/actors/enemies/ogu/ogu.tscn")
 		3:
-			scene_to_load = load("res://src/actors/enemies/tappy/tappy.tscn")
+			scene_to_load = load("res://src/actors/enemies/biggie/biggie.tscn")
 	var boss = scene_to_load.instantiate()
 	boss_holder.add_child(boss)
 	boss.global_position = boss_holder.global_position

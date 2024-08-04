@@ -112,6 +112,11 @@ func _ready():
 	process_mode = Node.PROCESS_MODE_ALWAYS
 
 func generate_bullets():
+	inactive_bullets.clear()
+	bullets.clear()
+	enemy_targets.clear()
+	for i in get_tree().get_nodes_in_group("Boss"):
+		i.add_self_to_list()
 	var bullet_scene = load("res://src/actors/bullet.tscn")
 	var bullet_holder = get_tree().get_first_node_in_group("BulletHolder")
 	if not bullet_holder:

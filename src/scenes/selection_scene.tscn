@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cvpkrr43cud6y"]
+[gd_scene load_steps=12 format=3 uid="uid://cvpkrr43cud6y"]
 
 [ext_resource type="Texture2D" uid="uid://dgfyccbvhfsbv" path="res://assets/textures/players/bam/bam.png" id="1_q8flv"]
 [ext_resource type="Script" path="res://src/scenes/selection_scene.gd" id="1_qamoj"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://1ursfxowlpd0" path="res://assets/textures/ui/embark.png" id="7_4j084"]
 [ext_resource type="Texture2D" uid="uid://imb4l0ya1an0" path="res://assets/textures/players/bam/portrait.png" id="7_j1xeo"]
 [ext_resource type="Texture2D" uid="uid://cq88o87femapj" path="res://assets/textures/players/ogu/portrait.png" id="8_ng4pm"]
+[ext_resource type="Texture2D" uid="uid://tn87aubcx43q" path="res://assets/textures/players/biggie/portrait.png" id="10_qoyka"]
 
 [node name="SelectionScene" type="Node2D" node_paths=PackedStringArray("charac", "boss")]
 script = ExtResource("1_qamoj")
@@ -41,6 +42,7 @@ name_rtl = NodePath("RichTextLabel")
 desc_rtl = NodePath("RichTextLabel2")
 sprite = NodePath(".")
 flag = "selected_character"
+max_index = 2
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Sprite2D"]
 offset_left = 9.0
@@ -68,24 +70,23 @@ metadata/_edit_use_anchors_ = true
 position = Vector2(-74, -30)
 texture_normal = ExtResource("5_kkhvr")
 
-[node name="Sprite2D2" type="Sprite2D" parent="." node_paths=PackedStringArray("name_rtl", "sprite")]
+[node name="Sprite2D2" type="Sprite2D" parent="." node_paths=PackedStringArray("name_rtl", "desc_rtl", "sprite")]
 position = Vector2(29, -1)
 texture = ExtResource("6_6dq8e")
 script = ExtResource("2_m8ai5")
 names = Array[String](["Tappy", "Bam", "Ogu", "Biggie"])
-descs = Array[String](["Ability:
-[Tapir Stomp]
-Clears all bullets on screen", "Ability:
-[Greedy Eater]
-Sucks in near by bullets and shoot one giant shot that gets stronger the more bullets absorbed", "Ability:
-[Absolute Fortress]
-Become invulnerable for 2 seconds, and increased shield bash speed", "Ability:
-[King Maker]
-???"])
-textures = Array[Texture2D]([ExtResource("6_6dq8e"), ExtResource("7_j1xeo"), ExtResource("8_ng4pm"), null])
+descs = Array[String](["Difficulty:
+Impossible", "Difficulty:
+Easy", "Difficulty:
+Medium", "Difficulty:
+Extreme"])
+textures = Array[Texture2D]([ExtResource("6_6dq8e"), ExtResource("7_j1xeo"), ExtResource("8_ng4pm"), ExtResource("10_qoyka")])
 name_rtl = NodePath("RichTextLabel")
+desc_rtl = NodePath("RichTextLabel3")
 sprite = NodePath(".")
 flag = "selected_boss"
+min_index = 1
+max_index = 3
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Sprite2D2"]
 offset_left = 21.0
@@ -95,6 +96,17 @@ offset_bottom = 69.0
 scale = Vector2(0.25, 0.25)
 theme_override_font_sizes/normal_font_size = 64
 text = "Biggie"
+metadata/_edit_use_anchors_ = true
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="Sprite2D2"]
+offset_left = 32.0
+offset_top = -10.0
+offset_right = 420.0
+offset_bottom = 314.0
+scale = Vector2(0.125, 0.125)
+theme_override_font_sizes/normal_font_size = 64
+text = "Difficulty:
+Easy"
 metadata/_edit_use_anchors_ = true
 
 [node name="TouchScreenButton2" type="TouchScreenButton" parent="."]
