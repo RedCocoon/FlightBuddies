@@ -1,0 +1,79 @@
+[gd_scene load_steps=6 format=3 uid="uid://dmiek0ssdm7fc"]
+
+[ext_resource type="Texture2D" uid="uid://ki1gu16x4npa" path="res://assets/textures/bullets/ogu/rose_preempt.png" id="1_qdmst"]
+[ext_resource type="Script" path="res://src/actors/enemies/ogu/rose_preempt.gd" id="2_ul1y7"]
+
+[sub_resource type="Animation" id="Animation_6kkey"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_qp1hd"]
+resource_name = "spawn"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 3.14159]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jyivp"]
+_data = {
+"RESET": SubResource("Animation_6kkey"),
+"spawn": SubResource("Animation_qp1hd")
+}
+
+[node name="RosePreempt" type="Sprite2D"]
+z_index = -1
+scale = Vector2(1e-05, 1)
+texture = ExtResource("1_qdmst")
+script = ExtResource("2_ul1y7")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." groups=["Rose"]]
+libraries = {
+"": SubResource("AnimationLibrary_jyivp")
+}
+autoplay = "spawn"
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

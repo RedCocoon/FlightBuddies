@@ -7,6 +7,7 @@ var enemy_targets: Array[BaseEnemy] = []
 enum BULLET_TYPES {
 	SMALL_BLUE,
 	MEDIUM_BLUE,
+	MEDIUM_BLUE_TRACK_INITIAL,
 	BAM_MEDIUM,
 	BAM_HEART,
 	BAM_SHARD,
@@ -56,6 +57,13 @@ var atlas_data = {
 		"sprite_size": [4, 8],
 		"target_type": TARGET_TYPES.ENEMY
 	},
+	BULLET_TYPES.MEDIUM_BLUE_TRACK_INITIAL: {
+		"pos": [1, 0],
+		"speed": 100,
+		"sprite_size": [4, 8],
+		"track": TRACK_TYPES.INITIAL,
+		"target_type": TARGET_TYPES.ENEMY
+	},
 	BULLET_TYPES.BAM_MEDIUM: {
 		"pos": [0, 1],
 		"speed": 10,
@@ -100,7 +108,6 @@ func get_bullet_data(type: BULLET_TYPES) -> Array:
 
 func _ready():
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	generate_bullets()
 
 func generate_bullets():
 	var bullet_scene = load("res://src/actors/bullet.tscn")

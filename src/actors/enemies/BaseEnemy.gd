@@ -16,7 +16,7 @@ func _ready():
 	BulletData.enemy_targets.append(self)
 
 func hit(amount:float):
-	if dead:
+	if dead or GameData.game_finished:
 		return
 	health = max(0, health-amount)
 	health_changed.emit(health)

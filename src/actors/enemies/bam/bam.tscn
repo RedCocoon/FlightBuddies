@@ -5,13 +5,14 @@
 [ext_resource type="Texture2D" uid="uid://bebtg2p22gtc1" path="res://assets/textures/ui/boss_health_bar.png" id="3_rv2a0"]
 [ext_resource type="Script" path="res://src/ui/BossHealthBar.gd" id="5_i0hau"]
 
-[node name="Bam" type="Sprite2D" node_paths=PackedStringArray("health_bar")]
+[node name="Bam" type="Sprite2D" node_paths=PackedStringArray("health_bar") groups=["Boss"]]
 texture = ExtResource("1_j3w6h")
 script = ExtResource("2_mx0eh")
 health_bar = NodePath("ProgressBar")
 MAX_HEALTH = 200.0
 
 [node name="ProgressBar" type="TextureProgressBar" parent="."]
+z_index = -2
 offset_left = -24.0
 offset_top = -24.0
 offset_right = 24.0

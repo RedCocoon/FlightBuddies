@@ -52,12 +52,19 @@ func tick(delta):
 						bullet.track_type = BulletData.TRACK_TYPES.CONTINUOUS
 				else:
 					BulletData.summon_bullet(shoot_pos_indicator[i].global_position, PI/2, BulletData.BULLET_TYPES.MEDIUM_BLUE)
-
+			
+			AudioManager.play("bullet/shoot", 3)
+			await get_tree().process_frame
+			await get_tree().process_frame
+			AudioManager.play("bullet/shoot", 3)
 
 func activate_bomb():
+	super()
 	get_tree().paused = true
 	tapir_stomp_anim_player.play("Fade In")
+	AudioManager.play("power")
 	await get_tree().create_timer(0.8).timeout
+	AudioManager.play("laser_large")
 	for i in BulletData.bullets:
 		if i is Bullet and i.active:
 				BulletData.deactivate_bullet(i)

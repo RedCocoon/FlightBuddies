@@ -3,7 +3,10 @@ extends Node
 var game_finished = false
 var graze = 0 :
 	set(g):
+		if game_finished:
+			return
 		graze = g
+		AudioManager.play("bullet/graze")
 		graze_changed.emit(g)
 
 var permanent_data : Dictionary = {}
@@ -12,7 +15,6 @@ signal graze_changed(int)
 
 func _ready():
 	load_data()
-	print(permanent_data)
 
 func save_data():
 	var file = FileAccess.open("user://data.cocoon", FileAccess.WRITE)

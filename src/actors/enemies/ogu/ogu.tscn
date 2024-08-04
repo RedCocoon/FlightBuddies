@@ -1,14 +1,15 @@
 [gd_scene load_steps=5 format=3 uid="uid://5g4xwela65dx"]
 
-[ext_resource type="Texture2D" uid="uid://djcqth7mdtqti" path="res://assets/textures/enemies/bosses/bam/bam.png" id="1_i7wmm"]
+[ext_resource type="Texture2D" uid="uid://c8v4nagwc0wc5" path="res://assets/textures/enemies/bosses/ogu/ogu.png" id="1_t6t7y"]
 [ext_resource type="Script" path="res://src/actors/enemies/ogu/ogu.gd" id="2_56jyq"]
 [ext_resource type="Texture2D" uid="uid://bebtg2p22gtc1" path="res://assets/textures/ui/boss_health_bar.png" id="3_rst70"]
 [ext_resource type="Script" path="res://src/ui/BossHealthBar.gd" id="4_8fevt"]
 
-[node name="Ogu" type="Sprite2D"]
-texture = ExtResource("1_i7wmm")
+[node name="Ogu" type="Sprite2D" groups=["Boss"]]
+z_index = -2
+texture = ExtResource("1_t6t7y")
 script = ExtResource("2_56jyq")
-MAX_HEALTH = 200.0
+MAX_HEALTH = 800.0
 
 [node name="ProgressBar" type="TextureProgressBar" parent="."]
 offset_left = -24.0

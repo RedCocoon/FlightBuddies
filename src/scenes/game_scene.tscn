@@ -1,5 +1,6 @@
-[gd_scene load_steps=22 format=3 uid="uid://oyoxl2uptaci"]
+[gd_scene load_steps=26 format=3 uid="uid://oyoxl2uptaci"]
 
+[ext_resource type="Script" path="res://src/scenes/game_scene.gd" id="1_n8vep"]
 [ext_resource type="Texture2D" uid="uid://qq1crrq2qms4" path="res://assets/textures/ui/buttons/focus.png" id="3_8gwhs"]
 [ext_resource type="Texture2D" uid="uid://058e3st72db7" path="res://assets/textures/background/clouds/cloud_2.png" id="5_5tipq"]
 [ext_resource type="Script" path="res://src/ui/ScrollingSprite2D.gd" id="6_g4xwc"]
@@ -11,10 +12,12 @@
 [ext_resource type="Script" path="res://src/ui/win_screen.gd" id="9_apx10"]
 [ext_resource type="Texture2D" uid="uid://ckfs61nplbu5t" path="res://assets/textures/background/clouds/cloud_5.png" id="9_nen7m"]
 [ext_resource type="Script" path="res://src/ui/time_out_screen.gd" id="10_vu05o"]
-[ext_resource type="PackedScene" uid="uid://sjkias4wbnry" path="res://src/actors/player/bam/bam.tscn" id="11_2vcwt"]
 [ext_resource type="Script" path="res://src/ui/lose_screen.gd" id="11_lc0na"]
+[ext_resource type="Script" path="res://src/ui/bomb_counter.gd" id="11_mx35o"]
+[ext_resource type="Texture2D" uid="uid://cocbv7flyctgn" path="res://assets/textures/ui/player_health_empty.png" id="12_0uwc1"]
 [ext_resource type="Script" path="res://src/ui/timer.gd" id="12_my16e"]
-[ext_resource type="PackedScene" uid="uid://bsaq8woksonnb" path="res://src/actors/enemies/bam/bam.tscn" id="13_a8gdg"]
+[ext_resource type="Texture2D" uid="uid://b352ox7yyt5m1" path="res://assets/textures/ui/bomb_empty.png" id="14_phhqb"]
+[ext_resource type="Script" path="res://src/ui/BossPositionMimic.gd" id="15_wxy7r"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_42kn3"]
 bg_color = Color(0.882353, 0.666667, 0.835294, 1)
@@ -29,10 +32,17 @@ bg_color = Color(0.882353, 0.666667, 0.835294, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mhi1o"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dj3cp"]
+bg_color = Color(1, 0, 0, 0.686275)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jkgvj"]
 size = Vector2(170, 130)
 
-[node name="GameScene" type="Node2D"]
+[node name="GameScene" type="Node2D" node_paths=PackedStringArray("health_counter", "bomb_counter", "boss_pos_mimic")]
+script = ExtResource("1_n8vep")
+health_counter = NodePath("CanvasLayer/AspectRatioContainer/HBoxContainer/Panel2/VBoxContainer2/Control")
+bomb_counter = NodePath("CanvasLayer/AspectRatioContainer/HBoxContainer/Panel2/VBoxContainer2/Control2")
+boss_pos_mimic = NodePath("BossPositionMimic")
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="."]
 layer = -1
@@ -220,8 +230,12 @@ mouse_filter = 1
 theme_override_constants/separation = 200
 theme_override_styles/separator = SubResource("StyleBoxEmpty_mhi1o")
 
-[node name="Control" type="Control" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Panel2/VBoxContainer2"]
+[node name="Control" type="Control" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Panel2/VBoxContainer2" node_paths=PackedStringArray("icons")]
 layout_mode = 2
+script = ExtResource("11_mx35o")
+icons = [NodePath("HBoxContainer/TextureRect"), NodePath("HBoxContainer/TextureRect2"), NodePath("HBoxContainer/TextureRect3")]
+available_icon = ExtResource("8_p5qqd")
+empty_icon = ExtResource("12_0uwc1")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Panel2/VBoxContainer2/Control"]
 layout_mode = 1
@@ -253,8 +267,12 @@ mouse_filter = 1
 theme_override_constants/separation = 100
 theme_override_styles/separator = SubResource("StyleBoxEmpty_mhi1o")
 
-[node name="Control2" type="Control" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Panel2/VBoxContainer2"]
+[node name="Control2" type="Control" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Panel2/VBoxContainer2" node_paths=PackedStringArray("icons")]
 layout_mode = 2
+script = ExtResource("11_mx35o")
+icons = [NodePath("HBoxContainer/TextureRect"), NodePath("HBoxContainer/TextureRect2"), NodePath("HBoxContainer/TextureRect3")]
+available_icon = ExtResource("9_73rgo")
+empty_icon = ExtResource("14_phhqb")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/AspectRatioContainer/HBoxContainer/Panel2/VBoxContainer2/Control2"]
 layout_mode = 1
@@ -280,16 +298,25 @@ custom_minimum_size = Vector2(56, 56)
 layout_mode = 2
 texture = ExtResource("9_73rgo")
 
-[node name="Bam" parent="." instance=ExtResource("11_2vcwt")]
-position = Vector2(0, 32)
+[node name="BossPositionMimic" type="Node2D" parent="."]
+script = ExtResource("15_wxy7r")
+
+[node name="Panel" type="Panel" parent="BossPositionMimic"]
+offset_left = -10.0
+offset_top = 65.0
+offset_right = 10.0
+offset_bottom = 68.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_dj3cp")
+
+[node name="PlayerHolder" type="Node2D" parent="." groups=["PlayerHolder"]]
+position = Vector2(0, 40)
 
 [node name="BulletHolder" type="Node2D" parent="." groups=["BulletHolder"]]
 
-[node name="Bam2" parent="." instance=ExtResource("13_a8gdg")]
-position = Vector2(0, -32)
-
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(8, 8)
+
+[node name="BossHolder" type="Node2D" parent="." groups=["BossHolder"]]
 
 [node name="Bound" type="StaticBody2D" parent="."]
 

@@ -6,6 +6,7 @@ var delay = MAX_DELAY
 @export var ulti_player : AnimationPlayer
 
 func activate_bomb():
+	super()
 	get_tree().paused = true
 	invulnerable = true
 	var affected_bullets = []
@@ -13,6 +14,7 @@ func activate_bomb():
 	big_bullet.scale = Vector2.ZERO
 	var max_wait_time = 0
 	ulti_player.play("Fade In")
+	var suck_asp = AudioManager.play("suck")
 	for i: Bullet in BulletData.bullets:
 		var distance = i.global_position.distance_to(global_position)
 		if i.target_type == BulletData.TARGET_TYPES.PLAYER and distance < 64:
@@ -25,9 +27,13 @@ func activate_bomb():
 			if scaled_distance > max_wait_time:
 				max_wait_time = scaled_distance
 			affected_bullets.append(i)
-	await ulti_player.animation_finished
+	await get_tree().create_timer(max_wait_time).timeout
+	suck_asp.queue_free()
 	for i in affected_bullets:
-		BulletData.deactivate_bullet(i)
+		if is_instance_valid(i):
+			BulletData.deactivate_bullet(i)
+	await ulti_player.animation_finished
+	AudioManager.play("laser_large")
 	get_tree().paused = false
 	invulnerable = false
 
@@ -46,3 +52,8 @@ func tick(delta):
 		delay = MAX_DELAY
 		for i in range(-5, 5):
 			BulletData.summon_bullet(global_position, (PI/2)+(i*deg_to_rad(5)), BulletData.BULLET_TYPES.SMALL_BLUE_BAM)
+		for i in range(4):
+			AudioManager.play("bullet/shoot")
+			await get_tree().process_frame
+			await get_tree().process_frame
+			await get_tree().process_frame

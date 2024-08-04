@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="FlightBuddies"
-run/main_scene="res://src/scenes/game_scene.tscn"
+run/main_scene="res://src/scenes/selection_scene.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 BulletData="*res://autoload/bullet_data.gd"
 GameData="*res://autoload/game_data.gd"
+AudioManager="*res://autoload/audio_manager.gd"
 
 [display]
 

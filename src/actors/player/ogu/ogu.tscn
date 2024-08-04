@@ -1,0 +1,184 @@
+[gd_scene load_steps=11 format=3 uid="uid://cbok46pqaa7v7"]
+
+[ext_resource type="Texture2D" uid="uid://c4u03as2ahpdn" path="res://assets/textures/players/ogu/ogu.png" id="1_xprbx"]
+[ext_resource type="Script" path="res://src/actors/player/ogu/ogu.gd" id="2_ki7lu"]
+[ext_resource type="Texture2D" uid="uid://cncyw7aqopcyi" path="res://assets/textures/players/hitbox.png" id="3_kq3js"]
+[ext_resource type="Texture2D" uid="uid://cq88o87femapj" path="res://assets/textures/players/ogu/portrait.png" id="4_2ybgj"]
+[ext_resource type="Texture2D" uid="uid://cpxnbc7na2mi7" path="res://assets/textures/players/ogu/shield.png" id="5_l3yl8"]
+[ext_resource type="Script" path="res://src/actors/player/ogu/orbiter.gd" id="5_mngkj"]
+[ext_resource type="Script" path="res://src/actors/player/ogu/shield.gd" id="6_0jw51"]
+
+[sub_resource type="Animation" id="Animation_jm4t1"]
+resource_name = "Fade In"
+length = 1.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.406126, 2.14355),
+"update": 0,
+"values": [Vector2(895, 839), Vector2(1558, 718)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.8, 1.1, 1.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../RichTextLabel:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(0.108819, 1),
+"update": 0,
+"values": [Vector2(121, 477), Vector2(577, 477)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../RichTextLabel:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.7, 1.1, 1.6),
+"transitions": PackedFloat32Array(0.133972, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1, 1), Vector2(1, 1), Vector2(1e-05, 1e-05)]
+}
+
+[sub_resource type="Animation" id="Animation_grs4b"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(895, 839)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../RichTextLabel:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(577, 477)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../RichTextLabel:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5i62t"]
+_data = {
+"Fade In": SubResource("Animation_jm4t1"),
+"RESET": SubResource("Animation_grs4b")
+}
+
+[node name="Ogu" type="Sprite2D" node_paths=PackedStringArray("orbiter", "shields", "animp") groups=["Player"]]
+texture = ExtResource("1_xprbx")
+script = ExtResource("2_ki7lu")
+orbiter = NodePath("Node2D")
+shields = [NodePath("Node2D/Sprite2D"), NodePath("Node2D/Sprite2D2"), NodePath("Node2D/Sprite2D3")]
+animp = NodePath("CanvasLayer/Control/Sprite2D/AnimationPlayer")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 0.785398
+texture = ExtResource("3_kq3js")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Control"]
+self_modulate = Color(1, 1, 1, 0)
+position = Vector2(895, 839)
+scale = Vector2(8, 8)
+texture = ExtResource("4_2ybgj")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Control/Sprite2D"]
+process_mode = 3
+libraries = {
+"": SubResource("AnimationLibrary_5i62t")
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_left = 577.0
+offset_top = 477.0
+offset_right = 1456.0
+offset_bottom = 895.0
+scale = Vector2(1e-05, 1e-05)
+theme_override_font_sizes/normal_font_size = 128
+text = "Absolute Fortress"
+
+[node name="Node2D" type="Node2D" parent="."]
+script = ExtResource("5_mngkj")
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D"]
+position = Vector2(16, 0)
+texture = ExtResource("5_l3yl8")
+script = ExtResource("6_0jw51")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Node2D"]
+position = Vector2(-16, 0)
+texture = ExtResource("5_l3yl8")
+script = ExtResource("6_0jw51")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Node2D"]
+position = Vector2(0, 16)
+texture = ExtResource("5_l3yl8")
+script = ExtResource("6_0jw51")
+
+[node name="Sprite2D4" type="Sprite2D" parent="Node2D"]
+position = Vector2(0, -16)
+texture = ExtResource("5_l3yl8")
+script = ExtResource("6_0jw51")

@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://dwy64d3v13bdl"]
+
+[ext_resource type="Texture2D" uid="uid://yxwa1ygckxo8" path="res://assets/textures/bullets/ogu/thorns.png" id="1_rdio4"]
+[ext_resource type="Script" path="res://src/actors/enemies/ogu/vine.gd" id="2_wbyoa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vsimf"]
+size = Vector2(2, 240)
+
+[node name="Vine" type="Sprite2D" node_paths=PackedStringArray("area")]
+position = Vector2(0, -192)
+texture = ExtResource("1_rdio4")
+script = ExtResource("2_wbyoa")
+area = NodePath("Area2D")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_vsimf")

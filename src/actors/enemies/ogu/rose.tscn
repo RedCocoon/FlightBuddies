@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dlrhkowyf4ukp"]
+[gd_scene load_steps=7 format=3 uid="uid://dlrhkowyf4ukp"]
 
 [ext_resource type="Script" path="res://src/actors/enemies/ogu/Rose.gd" id="1_7qgbg"]
 [ext_resource type="Texture2D" uid="uid://b1mdkgeaip7eq" path="res://assets/textures/bullets/ogu/rose.png" id="1_ftqma"]
@@ -34,19 +34,36 @@ tracks/0/keys = {
 "values": [Vector2(1, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_1xact"]
+resource_name = "spawn"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(0.225313, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jyivp"]
 _data = {
 "Explode": SubResource("Animation_b5oi5"),
-"RESET": SubResource("Animation_6kkey")
+"RESET": SubResource("Animation_6kkey"),
+"spawn": SubResource("Animation_1xact")
 }
 
 [node name="Rose" type="Sprite2D"]
+z_index = -1
 texture = ExtResource("1_ftqma")
 script = ExtResource("1_7qgbg")
-MAX_HEALTH = null
-hit_radius = null
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." groups=["Rose"]]
 libraries = {
 "": SubResource("AnimationLibrary_jyivp")
 }
+autoplay = "spawn"

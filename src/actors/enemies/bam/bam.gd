@@ -16,6 +16,7 @@ enum ATTACKS {CRYSTAL_SHARDS, BURST}
 
 func _ready():
 	super()
+	AudioManager.play_bgm("vs_bam")
 	health_bar.tint_under = Color("d87f5d")
 
 func _process(delta):
@@ -27,7 +28,8 @@ func _process(delta):
 			heart_delay = MAX_HEART_DELAY
 			for i in range(4):
 				BulletData.summon_bullet(global_position, -anim_cycle_angle-(i*2*PI/4), BulletData.BULLET_TYPES.BAM_HEART)
-	
+			AudioManager.play("bullet/shoot_hard", 1)
+				
 	if attack_delay != -INF:
 		attack_delay -= delta
 		if attack_delay <= 0:
@@ -44,18 +46,22 @@ func wander(delta):
 	position.x = cos(anim_cycle_angle)*10
 
 func attack():
+	if available_attacks.is_empty():
+		return
 	var chosen = available_attacks.pick_random()
 	match chosen:
 		ATTACKS.CRYSTAL_SHARDS:
 			for i in range(8):
 				var bullet = BulletData.summon_bullet(global_position+(16*Vector2.LEFT.rotated(i*2*PI/8.0)), 0, BulletData.BULLET_TYPES.BAM_SHARD)
 				bullet.delay = 0.8 - (i/10.0)
+				AudioManager.play("bullet/shoot_heavy", 1)
 				await get_tree().create_timer(0.1).timeout
 			attack_delay = MAX_ATTACK_DELAY
 		ATTACKS.BURST:
 			for i in range(5):
 				for j in range(5):
 					BulletData.summon_bullet(global_position, (2*PI*j/5)+(i*0.1), BulletData.BULLET_TYPES.BAM_MEDIUM)
+				AudioManager.play("bullet/shoot_hard", 1)
 				await get_tree().create_timer(0.1).timeout
 			attack_delay = MAX_ATTACK_DELAY
 			heart_delay = MAX_HEART_DELAY
@@ -70,6 +76,7 @@ func die():
 	if lives <= 0:
 		GameData.show_win_screen("Bam")
 		return
+	AudioManager.play("forcefield")
 	await get_tree().create_timer(0.2).timeout
 	health = MAX_HEALTH
 	if lives <= 1:
@@ -78,6 +85,7 @@ func die():
 	for i in range(13):
 		for j in range(5):
 			BulletData.summon_bullet(global_position, (2*PI*j/5)+(i*0.1), BulletData.BULLET_TYPES.BAM_MEDIUM)
+		AudioManager.play("bullet/shoot_hard", 1)
 		await get_tree().create_timer(0.1).timeout
 	attack_delay = MAX_ATTACK_DELAY
 	heart_delay = MAX_HEART_DELAY

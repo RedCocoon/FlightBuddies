@@ -142,6 +142,7 @@ _data = {
 bg_color = Color(0.912289, 0.912289, 0.912289, 1)
 
 [node name="Bam" type="Sprite2D" node_paths=PackedStringArray("ulti_player") groups=["Player"]]
+process_mode = 3
 texture = ExtResource("1_culw8")
 script = ExtResource("1_miapp")
 ulti_player = NodePath("CanvasLayer/Control/Sprite2D/AnimationPlayer")
